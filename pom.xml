@@ -50,6 +50,13 @@
 			<artifactId>spring-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.8</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -59,6 +66,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>patient_microservice</finalName>
 	</build>
 
 </project>

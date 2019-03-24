@@ -1,87 +1,61 @@
 package com.github.ehr.patient_microservice.entities;
 
- 
-import java.util.ArrayList;
 import java.util.List;
- 
+import java.util.Date; 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
- 
+import org.springframework.format.annotation.DateTimeFormat; 
+
+import lombok.Data;
+
+
 @Document(collection="patient")
+@Data
 public class Patient
 {
  
         @Id
-        private Long personId;
+        private Long identifier;
+        
+        private Boolean active;
+        private List<String> name;
+        private List<ContactPoint> telecom;
+        private String gender;
+        
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        private Date birthDate;
+        
+        private Boolean deceasedBoolean;
+
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        private Date deceBooleanDateTime;
          
-        private String name;
-         
-        private int age;
-         
-        @DBRef(db="address")
-        private List<Address> addresses = new ArrayList<>();
-         
+        private List<Address> addresses;
+        
+        private String maritalStatus;
+
+        private List<Photo> photo;
+
+        private List<Contact> contact;
+
+        private List<Communication> communication;
+
+        private Organization managingOrganization;
+
+        private PatientLink link;
+
         public Patient()
         {}
          
          
         @PersistenceConstructor
-        public Patient(Long personId, String name, int age)
+        public Patient(Long personId, List<String> name)
         {
                 super();
-                this.personId = personId;
+                this.identifier = personId;
                 this.name = name;
-                this.age = age;
-        }
- 
-        public Long getPersonId()
-        {
-                return personId;
-        }
- 
-        public void setPersonId(Long personId)
-        {
-                this.personId = personId;
-        }
- 
-        public String getName()
-        {
-                return name;
-        }
- 
-        public void setName(String name)
-        {
-                this.name = name;
-        }
- 
-        public int getAge()
-        {
-                return age;
-        }
- 
-        public void setAge(int age)
-        {
-                this.age = age;
-        }
- 
-        public List<Address> getAddresses()
-        {
-                return addresses;
-        }
- 
- 
-        public void setAddresses(List<Address> addresses)
-        {
-                this.addresses = addresses;
-        }
- 
- 
-        @Override
-        public String toString()
-        {
-                return "Person [personId=" + personId + ", name=" + name + ", age=" + age + ", addresses=" + addresses + "]";
         }
          
 }

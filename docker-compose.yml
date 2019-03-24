@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
+
+  patient:
+    image: patient
+    build: ./
+    ports:
+      - 9001:8080
+    environment:
+      - APP_DEBUG=1
+      - MONGO_URI=mongodb://admin:admin@mongo:27017/patient_microservice
+    depends_on:
+      - mongo
