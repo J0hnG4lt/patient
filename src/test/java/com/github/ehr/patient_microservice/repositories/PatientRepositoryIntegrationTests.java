@@ -19,31 +19,13 @@ import org.springframework.util.Assert;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { IntegrationTestMongoConfig.class })
 @DataMongoTest
-public class PatientRepositoryTests {
+public class PatientRepositoryIntegrationTests {
 
     @Autowired
     PatientRepositoryInterface patientRepo;
 
-    // @Autowired 
-    // MongoTemplate mongoTemplate;
-
-    // @BeforeAll
-    // public void init() throws Exception {
-        
-    //     this.mongoConnection = new EmbeddedMongoBuilder()
-    //         .version("2.6.1")
-    //         .bindIp("127.0.0.1")
-    //         .port(27017)
-    //         .build();
-    // }
-
-    // @AfterAll
-    // public void finalize() {
-    //     this.mongoConnection.close();
-    // }
-
 	@Test
-	public void createPatientAndStoreTest() {
+	public void createPatientAndStoreAndDeleteTest() {
         Patient patient = new Patient(
             Arrays.asList(
                 "Georvic", "Alejandro", "Tur", "Rojas"
