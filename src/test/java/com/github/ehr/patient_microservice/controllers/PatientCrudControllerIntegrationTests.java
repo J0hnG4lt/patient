@@ -1,19 +1,12 @@
 package com.github.ehr.patient_microservice.controllers;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.ehr.patient_microservice.entities.Patient;
 
-import org.springframework.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.util.Assert;
 
 
 @ExtendWith(SpringExtension.class)
@@ -68,15 +62,21 @@ public class PatientCrudControllerIntegrationTests {
 		HttpEntity<Patient> request = new HttpEntity<>(
 			new Patient(Arrays.asList("Georvic", "Tur"))
 		);
-
-		URI location = restTemplate
-		  .postForLocation(
-			this.base.toString()+"patient", request
-		);
-
-		ResponseEntity<String> getResponse = restTemplate.getForEntity(
+		
+		ResponseEntity<BigInteger> postResponse = restTemplate
+		.postForEntity(
 			this.base.toString()+"patient", 
-			String.class
+			request, 
+			BigInteger.class);
+
+		BigInteger patientId = postResponse.getBody();
+		Assert.isTrue(
+			patientId.abs().compareTo(BigInteger.ZERO) == 1,
+			"Unexpected ID for patient");
+
+		ResponseEntity<Patient> getResponse = restTemplate.getForEntity(
+			this.base.toString()+"patient/"+patientId.toString(), 
+			Patient.class
 		);
 
 		Assert.isTrue(
@@ -84,27 +84,17 @@ public class PatientCrudControllerIntegrationTests {
 			"The response status was not OK"
 		);
 
-		ObjectMapper objectMapper = new ObjectMapper();
+		Patient returnedPatient = getResponse.getBody();
 
-		try {
-			ArrayList<Patient> patients = objectMapper.readValue(
-				getResponse.getBody(),
-				new TypeReference<List<Patient>>(){}
-			);
-			Assert.isTrue(
-				patients.size() > 0,
-				"The patient list should not be empty"
-			);
-			Assert.isTrue(
-				patients.get(0).getName().get(0).equalsIgnoreCase("Georvic"),
-				"Unexpected name"
-			);
-		} catch(IOException e) {
-			fail(
-				"The objectMapper for JSON failed", 
-				e
-			);
-		} 
+		Assert.isTrue(
+			returnedPatient.getName().get(0).equalsIgnoreCase("Georvic"),
+			"Unexpected name"
+		);
+
+		Assert.isTrue(
+			returnedPatient.getIdentity().equals(patientId),
+			"Unexpected ID"
+		);
 		
 		mongoTemplate.dropCollection(Patient.class);
 	}

@@ -51,11 +51,11 @@ public class PatientCrudController
     }
 
     @RequestMapping(value = "/patient", method = RequestMethod.POST)
-    public String createPatient(@RequestBody Patient patient){
+    public BigInteger createPatient(@RequestBody Patient patient){
         
-        patientRepo.save(patient);
+        Patient storedPatient = patientRepo.save(patient);
 
-        return "ok";
+        return storedPatient.getIdentity();
     }
 
     @RequestMapping(value = "/patient/{id}", method = RequestMethod.DELETE)
