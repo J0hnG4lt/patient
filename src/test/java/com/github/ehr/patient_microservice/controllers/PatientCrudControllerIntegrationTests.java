@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import com.github.ehr.patient_microservice.entities.Patient;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,9 +47,15 @@ public class PatientCrudControllerIntegrationTests {
 		mongoTemplate.dropCollection(Patient.class);
     }
 
+    @AfterEach
+    public void teadDown() throws Exception {
+		mongoTemplate.dropCollection(Patient.class);
+    }
+
 	@Test
 	public void createAndGetPatientTest() {
 
+		// GET request for listing patients
 		ResponseEntity<String> getResponseEmpty = restTemplate.getForEntity(
 			this.base.toString()+"patient", 
 			String.class
@@ -63,6 +70,7 @@ public class PatientCrudControllerIntegrationTests {
 			new Patient(Arrays.asList("Georvic", "Tur"))
 		);
 		
+		// POST request for patient
 		ResponseEntity<BigInteger> postResponse = restTemplate
 		.postForEntity(
 			this.base.toString()+"patient", 
@@ -74,6 +82,7 @@ public class PatientCrudControllerIntegrationTests {
 			patientId.abs().compareTo(BigInteger.ZERO) == 1,
 			"Unexpected ID for patient");
 
+		// GET request for patient that was recently created
 		ResponseEntity<Patient> getResponse = restTemplate.getForEntity(
 			this.base.toString()+"patient/"+patientId.toString(), 
 			Patient.class
@@ -84,6 +93,7 @@ public class PatientCrudControllerIntegrationTests {
 			"The response status was not OK"
 		);
 
+		// check that it is the same patient
 		Patient returnedPatient = getResponse.getBody();
 
 		Assert.isTrue(
@@ -96,7 +106,46 @@ public class PatientCrudControllerIntegrationTests {
 			"Unexpected ID"
 		);
 		
-		mongoTemplate.dropCollection(Patient.class);
+	}
+
+	@Test
+	public void createAndDeletePatient()
+	{
+
+		HttpEntity<Patient> request = new HttpEntity<>(
+			new Patient(Arrays.asList("Georvic", "Tur"))
+		);
+		
+		// POST request for creating a new patient
+		ResponseEntity<BigInteger> postResponse = restTemplate
+		.postForEntity(
+			this.base.toString()+"patient", 
+			request, 
+			BigInteger.class);
+
+		BigInteger patientId = postResponse.getBody();
+		Assert.isTrue(
+			patientId.abs().compareTo(BigInteger.ZERO) == 1,
+			"Unexpected ID for patient");
+		
+		// DELETE request for deleting the patient that was just created
+		restTemplate
+		.delete(
+			this.base.toString()
+			+
+			"patient/"+patientId.toString());
+
+		// Make sure that this patient does not appear any more
+		ResponseEntity<Patient> getResponse = restTemplate.getForEntity(
+			this.base.toString()+"patient/"+patientId.toString(), 
+			Patient.class
+		);
+
+		Assert.isTrue(
+			getResponse.getStatusCode().equals(HttpStatus.NOT_FOUND),
+			"The response status was not expected"
+		);
+			
 	}
 
 }
