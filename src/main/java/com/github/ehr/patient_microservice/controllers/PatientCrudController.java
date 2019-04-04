@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import com.github.ehr.patient_microservice.repositories.PatientRepositoryInterface;
 import com.github.ehr.patient_microservice.entities.Patient;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class PatientCrudController
 
     @RequestMapping(value = "/patient/{id}", method = RequestMethod.GET)
     public Patient getPatient(
-        @PathVariable Long id
+        @PathVariable BigInteger id
     ){
         Optional<Patient> oPatient = patientRepo.findById(id);
         if (oPatient.isPresent()){
@@ -59,7 +60,7 @@ public class PatientCrudController
 
     @RequestMapping(value = "/patient/{id}", method = RequestMethod.DELETE)
     public String deletePatient(
-        @PathVariable Long id
+        @PathVariable BigInteger id
     ){
         
         Optional<Patient> oPatient = patientRepo.findById(id);

@@ -1,6 +1,7 @@
 package com.github.ehr.patient_microservice.entities;
 
 import java.util.List;
+import java.math.BigInteger;
 import java.util.Date; 
 
 import org.springframework.data.annotation.Id;
@@ -8,19 +9,21 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat; 
 
-import lombok.Data;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NonNull;
 
 @Document(collection="patient")
-@Data
+@Getter
+@Setter
 public class Patient
 {
  
         @Id
-        private Long identifier;
-        
+        private BigInteger identity;
+
         private Boolean active;
-        private List<String> name;
+        @NonNull private List<String> name;
         private List<ContactPoint> telecom;
         private String gender;
         
@@ -51,10 +54,9 @@ public class Patient
          
          
         @PersistenceConstructor
-        public Patient(Long personId, List<String> name)
+        public Patient(List<String> name)
         {
                 super();
-                this.identifier = personId;
                 this.name = name;
         }
          
