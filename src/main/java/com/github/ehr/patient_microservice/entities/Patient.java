@@ -1,6 +1,7 @@
 package com.github.ehr.patient_microservice.entities;
 
 import java.util.List;
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.util.Date; 
 
@@ -60,4 +61,5 @@ public class Patient
                 this.name = name;
         }
          
+
 }

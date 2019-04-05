@@ -33,11 +33,13 @@ This is a microservice that performs CRUD operations on Patient resources that a
 
 ## Useful commands
 
-1. /opt/apache-maven-3.6.0/bin/mvn test
-2. /opt/apache-maven-3.6.0/bin/mvn compile
-3. /opt/apache-maven-3.6.0/bin/mvn package
-4. sudo docker-compose up --build
-5. java -jar target/patient_microservice.jar
+1. mvn test
+2. mvn compile
+3. mvn package
+4. mvn test -Dtest=PatientCrudControllerIntegrationT
+ests#createAndPatchPatient
+5. docker-compose up --build
+6. java -jar target/patient_microservice.jar
 
 ## Standards
 
