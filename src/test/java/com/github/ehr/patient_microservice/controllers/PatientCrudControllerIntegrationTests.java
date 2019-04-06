@@ -1,7 +1,6 @@
 package com.github.ehr.patient_microservice.controllers;
 
 import java.math.BigInteger;
-import java.net.URI;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;

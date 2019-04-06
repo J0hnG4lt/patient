@@ -1,24 +1,23 @@
 package com.github.ehr.patient_microservice.entities;
  
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Address
 {
               
-        @NonNull private String address;
+        public String address;
          
-        @NonNull private String city;
+        public String city;
          
-        @NonNull private String state;
+        public String state;
 
-        @NonNull private String countryCode;
+        public String countryCode;
          
-        @NonNull private long zipcode;
+        public long zipcode;
          
 }

@@ -1,23 +1,23 @@
 package com.github.ehr.patient_microservice.entities;
 
 import java.util.List;
- 
+
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Organization
 {
  
-        @NonNull private List<String> alias;
-        @NonNull private String name;
-        @NonNull private List<String> type;
-        @NonNull private List<ContactPoint> telecom;
-        @NonNull private List<Address> address;
+        @NonNull public List<String> alias;
+        @NonNull public String name;
+        @NonNull public List<String> type;
+        @NonNull public List<ContactPoint> telecom;
+        @NonNull public List<Address> address;
 
          
 }

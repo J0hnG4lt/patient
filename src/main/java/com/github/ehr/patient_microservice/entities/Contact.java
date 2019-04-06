@@ -3,21 +3,20 @@ package com.github.ehr.patient_microservice.entities;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Contact
 {
  
-        @NonNull List<String> relationship;
-        @NonNull private String name;
-        @NonNull private List<ContactPoint> telecom;
-        @NonNull private Address address;
-        @NonNull private String gender;
+        @NonNull public List<String> relationship;
+        @NonNull public List<String> name;
+        @NonNull public List<ContactPoint> telecom;
+        public Address address;
+        @NonNull public String gender;
  
-         
 }

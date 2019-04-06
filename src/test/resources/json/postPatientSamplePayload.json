@@ -1,0 +1,79 @@
+{
+    "name" : ["Georvic", "Alejandro", "Tur", "Rojas"],
+    "gender" : "M",
+    "active" : true,
+    "deceasedBoolean" : false,
+    "birthDate" : "2000-10-02T00:00:00.000Z",
+    "maritalStatus" : "married",
+    "addresses" : [
+        {
+            "address" : "Av. Fantasía",
+            "city" : "Caracas",
+            "state" : "Distrito Capital",
+            "countryCode" : "VE",
+            "zipcode" : 1050
+        }
+    ],
+    "contact" : [
+        {
+            "relationship" : ["boss"],
+            "name" : ["Martin"],
+            "gender" : "M",
+            "telecom" : [
+                {
+                    "system" : "cellphone",
+                    "value" : "+584240000000",
+                    "use" : "personal",
+                    "rank" : 1
+                }
+            ]
+        }
+    ],
+    "communication" : [
+        {
+            "language" : "spanish",
+            "preffered" : false
+        },
+        {
+            "language" : "english",
+            "preffered" : true
+        }
+    ],
+    "telecom" : [
+        {
+            "system" : "cellphone",
+            "value" : "+584141111111",
+            "use" : "personal",
+            "rank" : 1
+        }
+    ],
+    "photos" : [
+        {
+            "uri" : "uri",
+            "name" : "my profile",
+            "rank" : 1
+        }
+    ],
+    "managingOrganization" : {
+        "alias" : ["USB"],
+        "name" : "Universidad Simón Bolívar",
+        "type" : ["education"],
+        "address" : [
+            {
+                "address" : "Sartenejas",
+                "city" : "Caracas",
+                "state" : "Miranda",
+                "countryCode" : "VE",
+                "zipcode" : 1
+            }
+        ],
+        "telecom" : [
+            {
+                "system" : "cellphone",
+                "value" : "+584142222222",
+                "use" : "institutional",
+                "rank" : 1
+            }
+        ]
+    }
+}

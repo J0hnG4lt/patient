@@ -1,19 +1,19 @@
 package com.github.ehr.patient_microservice.entities;
  
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class ContactPoint
 {
  
-        @NonNull String system;
-        @NonNull private String value;
-        @NonNull private String use;
-        @NonNull private Integer rank;
+        @NonNull public String system;
+        @NonNull public String value;
+        @NonNull public String use;
+        @NonNull public Integer rank;
   
 }
