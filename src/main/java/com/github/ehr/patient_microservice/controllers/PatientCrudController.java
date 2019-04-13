@@ -4,12 +4,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 import com.github.ehr.patient_microservice.repositories.PatientRepositoryInterface;
 import com.github.ehr.patient_microservice.entities.Patient;
@@ -120,6 +123,12 @@ public class PatientCrudController
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found");
         }
         
+    }
+
+    @ExceptionHandler(UnrecognizedPropertyException.class)
+    public void errorHandler() {
+      // do something. e.g. customize error response
+      
     }
 
 }

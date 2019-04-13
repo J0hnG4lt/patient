@@ -10,9 +10,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-@Profile(value = "!test")
+
 @Configuration
 @EnableMongoRepositories(basePackages = "com.github.ehr.patient_microservice.repositories")
+@Profile({"development", "!test"})
 public class MongoConfig extends AbstractMongoConfiguration {
 
     @Override
