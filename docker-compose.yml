@@ -1,6 +1,7 @@
 version: '3.1'
 services:
 
+# MongoDB
   mongo:
     image: mongo
     ports:
@@ -9,6 +10,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
 
+# Mongo UI
   mongo-express:
     image: mongo-express
     ports:
@@ -19,6 +21,18 @@ services:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
       - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
 
+# Service Discovery
+  consul1: 
+    image: consul
+    container_name: consul1
+    hostname: consul1
+    ports:
+      - 8301:8301
+      - 8400:8400
+      - 8500:8500
+      - 8600:53/udp
+
+# Main Microservice
   patient:
     image: patient
     build: ./
@@ -29,3 +43,5 @@ services:
       - MONGO_URI=mongodb://admin:admin@mongo:27017/patient_microservice
     depends_on:
       - mongo
+      - consul1
+
