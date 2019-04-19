@@ -27,7 +27,7 @@ This is a microservice that performs CRUD operations on Patient resources that a
 2. Containerization with Docker
 3. Test driven development with JUnit
 4. Dependency Injection with Spring
-5. Service discovery with Eureka (TODO)
+5. Service discovery with Consul
 6. Mongo Replication (TODO)
 7. Mongo Sharding (TODO)
 
